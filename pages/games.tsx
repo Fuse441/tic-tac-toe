@@ -255,7 +255,7 @@ export default function Game() {
   `}
         onClick={() => setIsOpen(false)}
       >
-        <div
+        <button
           className={`
       absolute
       bottom-0
@@ -275,7 +275,7 @@ export default function Game() {
           </div>
 
           <ScoreboardContent scoreboard={scoreboard} />
-        </div>
+        </button>
       </button>
       {/* ================= SCOREBOARD (Fixed Right) ================= */}
       <div
