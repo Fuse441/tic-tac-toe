@@ -9,9 +9,25 @@ export default function Game() {
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [isDraw, setIsDraw] = useState(false);
   const [stackScore, setStackScore] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const [score, setScore] = useState(0);
   const [scoreboard, setScoreboard] = useState<[]>([]);
   const { data: session } = useSession();
+  const ScoreboardContent = ({ scoreboard }: any) => (
+    <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto">
+      {scoreboard.map((item: any, index: number) => (
+        <div
+          key={index}
+          className="flex justify-between px-4 py-2 rounded-lg border"
+        >
+          <span className="font-medium">
+            #{index + 1} {item.name}
+          </span>
+          <span className="font-bold">{item.score ?? 0}</span>
+        </div>
+      ))}
+    </div>
+  );
   useEffect(() => {
     const loadScore = async () => {
       if (!session?.user?.email) return;
@@ -149,6 +165,27 @@ export default function Game() {
 
   return (
     <div className="relative">
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="
+    lg:hidden
+    fixed
+    bottom-6
+    right-6
+    bg-blue-500
+    text-white
+    px-4
+    py-3
+    rounded-full
+    shadow-lg
+    hover:bg-blue-600
+    transition
+  "
+      >
+        🏆
+      </button>
+
       {/* ================= GAME (Centered) ================= */}
       <div className="flex flex-col items-center justify-center  gap-6">
         <h1 className="text-3xl font-bold">Tic Tac Toe</h1>
@@ -206,38 +243,57 @@ export default function Game() {
           </div>
         )}
       </div>
+      {/* Mobile Panel */}
+      <div
+        className={`
+    lg:hidden
+    fixed
+    inset-0
+    bg-black/40
+    transition
+    ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+  `}
+        onClick={() => setIsOpen(false)}
+      >
+        <div
+          className={`
+      absolute
+      bottom-0
+      w-full
+      bg-black
+      rounded-t-3xl
+      p-6
+      transition-transform
+      duration-300
+      ${isOpen ? "translate-y-0" : "translate-y-full"}
+    `}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">🏆 Scoreboard Top 5</h2>
+            <button onClick={() => setIsOpen(false)}>✕</button>
+          </div>
 
+          <ScoreboardContent scoreboard={scoreboard} />
+        </div>
+      </div>
       {/* ================= SCOREBOARD (Fixed Right) ================= */}
       <div
         className="
-      fixed
-      top-1/2
-      right-4
-      -translate-y-1/2
-      w-72
-    
-      rounded-2xl
-      shadow-2xl
-      p-6
-      border
-      border-gray-200
-    "
+    hidden lg:block
+    w-72
+    fixed
+    right-4
+    top-1/2
+    -translate-y-1/2
+    rounded-2xl
+    shadow-2xl
+    p-6
+    border
+    border-gray-200
+  "
       >
-        <h2 className="text-xl font-bold mb-4 text-center">
-          🏆 Scoreboard Top 5
-        </h2>
-
-        <div className="flex flex-col gap-3 max-h-[400px] overflow-y-auto">
-          {/* example row */}
-          <div className="flex flex-col items-start justify-between items-center px-4 py-2 rounded-lg border">
-            {scoreboard.map((item: any, index) => (
-              <div key={index}>
-                <span className="font-medium">{item.name!} : </span>
-                <span className="font-bold">{item.score! || "Not Found"}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <ScoreboardContent scoreboard={scoreboard} />
       </div>
     </div>
   );
