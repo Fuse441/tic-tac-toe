@@ -185,7 +185,6 @@ export default function Game() {
       >
         🏆
       </button>
-
       {/* ================= GAME (Centered) ================= */}
       <div className="flex flex-col items-center justify-center  gap-6">
         <h1 className="text-3xl font-bold">Tic Tac Toe</h1>
@@ -245,38 +244,37 @@ export default function Game() {
       </div>
       {/* Mobile Panel */}
       <button
+        type="button"
+        aria-label="Close scoreboard"
         className={`
     lg:hidden
-    fixed
-    inset-0
+    fixed inset-0
     bg-black/40
     transition
     ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
   `}
         onClick={() => setIsOpen(false)}
       >
-        <button
+        {/* panel */}
+        <div
           className={`
-      absolute
-      bottom-0
-      w-full
+      absolute bottom-0 w-full
       bg-black
       rounded-t-3xl
       p-6
-      transition-transform
-      duration-300
+      transition-transform duration-300
       ${isOpen ? "translate-y-0" : "translate-y-full"}
     `}
-          onClick={(e) => e.stopPropagation()}
         >
+          <button onClick={(e) => e.stopPropagation()}></button>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold">🏆 Scoreboard Top 5</h2>
             <button onClick={() => setIsOpen(false)}>✕</button>
           </div>
 
           <ScoreboardContent scoreboard={scoreboard} />
-        </button>
-      </button>
+        </div>
+      </button>{" "}
       {/* ================= SCOREBOARD (Fixed Right) ================= */}
       <div
         className="
