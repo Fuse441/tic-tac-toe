@@ -244,7 +244,7 @@ export default function Game() {
         )}
       </div>
       {/* Mobile Panel */}
-      <div
+      <button
         className={`
     lg:hidden
     fixed
@@ -276,7 +276,7 @@ export default function Game() {
 
           <ScoreboardContent scoreboard={scoreboard} />
         </div>
-      </div>
+      </button>
       {/* ================= SCOREBOARD (Fixed Right) ================= */}
       <div
         className="
