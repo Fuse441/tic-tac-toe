@@ -188,7 +188,10 @@ export default function Game() {
       {/* ================= GAME (Centered) ================= */}
       <div className="flex flex-col items-center justify-center  gap-6">
         <h1 className="text-3xl font-bold">Tic Tac Toe</h1>
-
+        <p className="mt-2 text-sm text-yellow-600 font-medium">
+          ⚠️ This is a demo version. Some features may not work at full capacity
+          and are currently under improvement.
+        </p>
         <div className="text-lg font-semibold flex flex-col items-center gap-1">
           <p>Turn : {isPlayerTurn ? "You" : "Bot"}</p>
           <p>Score : {score}</p>
