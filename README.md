@@ -1,55 +1,150 @@
-# Next.js & HeroUI Template
+# 🎮 Tic-Tac-Toe Web Application
 
-This is a template for creating applications using Next.js 14 (pages directory) and HeroUI (v2).
+A modern full-stack **Tic-Tac-Toe** web game built with **Next.js**, featuring Google OAuth authentication, a score tracking system, win streak bonuses, and a responsive leaderboard.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/next-pages-template)
+This project demonstrates full-stack development with authentication, database integration, API routes, and responsive UI design.
 
-> Note: Since Next.js 14, the pages router is recommend migrating to the [new App Router](https://nextjs.org/docs/app) to leverage React's latest features
->
-> Read more: [Pages Router](https://nextjs.org/docs/pages)
+---
 
-## Technologies Used
+# 🚀 Live Demo
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI](https://heroui.com)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+> Add your deployed URL here  
+> Example:
+> https://your-domain.vercel.app
 
-## How to Use
+---
 
-To create a new project based on this template using `create-next-app`, run the following command:
+# ✨ Features
+
+## 🎯 Game System
+
+- 3×3 Tic-Tac-Toe board
+- Player vs Bot gameplay
+- Automatic win / draw detection
+- Turn-based logic
+- Game reset system
+
+## 🏆 Score System
+
+- +1 point for each win
+- −1 point for each loss
+- 🔥 Bonus +1 point for 3 consecutive wins
+- Persistent score storage (MongoDB)
+- Auto-updating leaderboard
+
+## 🔐 Authentication
+
+- Google OAuth 2.0
+- Secure session handling via NextAuth
+- JWT-based session encryption
+
+## 📊 Leaderboard
+
+- Top 5 highest scoring players
+- Sorted by score (descending)
+- Desktop: fixed right sidebar
+- Mobile: bottom sheet modal
+
+## 📱 Responsive Design
+
+- Fully responsive layout
+- Mobile-friendly modal system
+- Accessibility-aware components
+
+---
+
+# 🛠️ Tech Stack
+
+| Technology    | Purpose                    |
+| ------------- | -------------------------- |
+| Next.js       | Full-stack React framework |
+| TypeScript    | Type safety                |
+| NextAuth      | Authentication             |
+| MongoDB Atlas | Database                   |
+| Tailwind CSS  | Styling                    |
+| Vercel        | Deployment                 |
+
+---
+
+# 📂 Project Structure
+
+- /app
+- /api
+- /auth
+- /score
+- /game-result
+- /components
+- /lib
+- /models
+
+---
+
+# ⚙️ Installation & Setup
+
+## 1️⃣ Clone the Repository
 
 ```bash
-npx create-next-app -e https://github.com/heroui-inc/next-pages-template
-```
+git clone https://github.com/Fuse441/tic-tac-toe.git
+cd tic-tac-toe
 
-### Install dependencies
-
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
-
-```bash
 npm install
+
+Environment Variables
+
+Create a file named: .env.local
+# ==============================
+# NextAuth Configuration
+# ==============================
+
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_random_secret_key
+
+# ==============================
+# Google OAuth Credentials
+# ==============================
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# ==============================
+# MongoDB Database
+# ==============================
+
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database_name
+
+🔐 Generate NEXTAUTH_SECRET
+
+Run this command: openssl rand -base64 32
+Copy the output and paste it into:
+NEXTAUTH_SECRET=
+
+🔑 Google OAuth Setup
+
+Go to Google Cloud Console
+https://console.cloud.google.com/
+
+Create a new project.
+
+Enable Google Identity Services.
+
+Navigate to:
+APIs & Services → Credentials
+
+Create OAuth Client ID.
+
+Add Authorized Redirect URI:
+
+For local development:
+http://localhost:3000/api/auth/callback/google
+
+🧪 Running the App (Development)
+
+Start development server: npm run dev
+
+| Endpoint                  | Method     | Description            |
+| ------------------------- | ---------- | ---------------------- |
+| `/api/auth/[...nextauth]` | GET / POST | Authentication handler |
+| `/api/score`              | GET        | Fetch user score       |
+| `/api/score`              | POST       | Update score           |
+| `/api/game-result`        | POST       | Submit game result     |
 ```
-
-### Run the development server
-
-```bash
-npm run dev
-```
-
-### Setup pnpm (optional)
-
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/heroui-inc/next-pages-template/blob/main/LICENSE).
